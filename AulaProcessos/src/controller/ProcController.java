@@ -54,4 +54,20 @@ public class ProcController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void mataProcesso(String param) {
+		String cmdPid = "TASKKILL /PID ";
+		String cmdNome = "TASKKILL /IM ";
+		int pid = 0;
+		StringBuffer buffer = new StringBuffer();
+		try {
+			pid = Integer.parseInt(param);
+			buffer.append(cmdPid);
+			buffer.append(pid);
+		}catch(NumberFormatException e) {
+			buffer.append(cmdNome);
+			buffer.append(param);
+		}
+		chamaProcesso(buffer.toString());
+	}
 }

@@ -11,9 +11,11 @@ public class Principal {
 			
 			//String processo = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
 			//proc.chamaProcesso(processo);
+			//String processo = "PING www.google.com -t";
+			//proc.leProcesso(processo);
 			
-			String processo = "PING -t www.google.com.br";
-			proc.leProcesso(processo);
+			String processo = "notepad.exe";
+			proc.mataProcesso(processo);
 	}
 
 }
