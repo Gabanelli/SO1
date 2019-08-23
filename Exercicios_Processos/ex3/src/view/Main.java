@@ -5,16 +5,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.CancelController;
+import controller.ExecuteController;
+import controller.SelectController;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtProcedimento;
+	private JButton btnOk = new JButton("OK");
+	private JButton btnCancelar = new JButton("Cancelar");
+	private JButton btnProcurar = new JButton("Procurar");
+	private final JLabel lblNewLabel = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -40,7 +50,7 @@ public class Main extends JFrame {
 		String os = System.getProperty("os.name");
 		setTitle("Executar - " + os);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 397, 195);
+		setBounds(100, 100, 418, 175);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -48,29 +58,38 @@ public class Main extends JFrame {
 		
 		JLabel lblDigiteOCaminho = new JLabel("Digite o caminho do execut\u00E1vel ou clique em procurar");
 		lblDigiteOCaminho.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDigiteOCaminho.setBounds(25, 11, 330, 14);
+		lblDigiteOCaminho.setBounds(63, 23, 339, 20);
 		contentPane.add(lblDigiteOCaminho);
 		
 		JLabel lblAbrir = new JLabel("Abrir:");
 		lblAbrir.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAbrir.setBounds(10, 63, 46, 14);
+		lblAbrir.setBounds(46, 64, 46, 14);
 		contentPane.add(lblAbrir);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 62, 300, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtProcedimento = new JTextField();
+		txtProcedimento.setBounds(102, 63, 300, 20);
+		contentPane.add(txtProcedimento);
+		txtProcedimento.setColumns(10);
 		
-		JButton btnOk = new JButton("OK");
 		btnOk.setBounds(40, 111, 89, 23);
 		contentPane.add(btnOk);
 		
-		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(160, 111, 89, 23);
 		contentPane.add(btnCancelar);
 		
-		JButton btnProcurar = new JButton("Procurar");
 		btnProcurar.setBounds(277, 111, 89, 23);
 		contentPane.add(btnProcurar);
+		
+		ExecuteController execute = new ExecuteController(txtProcedimento);
+		CancelController cancel = new CancelController();
+		SelectController select = new SelectController(txtProcedimento);
+		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/com/sun/java/swing/plaf/windows/icons/JavaCup32.png")));
+		lblNewLabel.setBounds(10, 9, 32, 43);
+		
+		contentPane.add(lblNewLabel);
+		
+		this.btnOk.addActionListener(execute);
+		this.btnCancelar.addActionListener(cancel);
+		this.btnProcurar.addActionListener(select);
 	}
 }
