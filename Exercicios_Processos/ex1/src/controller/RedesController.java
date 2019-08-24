@@ -39,5 +39,38 @@ public class RedesController {
 		}
 		return textoAdaptadores;
 	}
-	
+
+public String ping(String os) {
+		String media = "";
+		try {
+			Process processo = Runtime.getRuntime().exec(os.contains("Windows")? "ping -n 10 www.google.com" : "ping -c 10 www.google.com");
+			InputStream fluxo = processo.getInputStream();
+			InputStreamReader leitor = new InputStreamReader(fluxo);
+			BufferedReader buffer = new BufferedReader(leitor);
+			String linha = buffer.readLine();
+			int med = 0;
+			
+			while(linha != null) {
+				if(linha.contains("o=")) {
+					String tempo = linha.substring(43, 45);
+					med += Integer.parseInt(tempo);
+				}else if(linha.contains("inacessível")){
+					media = "Host inacessível";
+				}
+				linha = buffer.readLine();
+			}
+			
+			med = med / 10;
+			if(med > 0) {
+				media = "Media de ping = " + Integer.toString(med) + "ms";
+			}else {
+				media = "A conexão não pôde ser realizada";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return media;
+	}	
+
 }
