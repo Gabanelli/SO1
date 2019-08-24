@@ -20,14 +20,26 @@ public class RedesController {
 			String linha = buffer.readLine();
 			String nomeAdaptador = "";
 			
-			while(linha != null) {
-				if(linha.contains("Adaptador")) {
-					nomeAdaptador = linha.toString();
+			if(os.contains("Windows")) {
+				while(linha != null) {
+					if(linha.contains("IPv4")) {
+						textoAdaptadores += nomeAdaptador + "\n" + linha.toString() + "\n";
+					}
+					if(linha.contains("Adaptador")) {
+						nomeAdaptador = linha.toString();
+					}
+					linha = buffer.readLine();
 				}
-				if(linha.contains("IPv4")) {
-					textoAdaptadores += nomeAdaptador + "\n" + linha.toString() + "\n";
+			}else {
+				while(linha != null) {
+					if(linha.contains("inet ")) {			
+						nomeAdaptador = linha.toString();
+					}
+					if(linha.contains("txqueuelen 1000")) {
+						textoAdaptadores += linha.toString() + "\n" + nomeAdaptador + "\n";
+					}
+					linha = buffer.readLine();
 				}
-				linha = buffer.readLine();
 			}
 			
 			buffer.close();
@@ -43,28 +55,42 @@ public class RedesController {
 public String ping(String os) {
 		String media = "";
 		try {
-			Process processo = Runtime.getRuntime().exec(os.contains("Windows")? "ping -n 10 www.google.com" : "ping -c 10 www.google.com");
+			Process processo = Runtime.getRuntime().exec(os.contains("Windows")? "ping -n 10 www.google.com" : "ping -c 9 www.google.com");
 			InputStream fluxo = processo.getInputStream();
 			InputStreamReader leitor = new InputStreamReader(fluxo);
 			BufferedReader buffer = new BufferedReader(leitor);
 			String linha = buffer.readLine();
 			int med = 0;
 			
-			while(linha != null) {
-				if(linha.contains("o=")) {
-					String tempo = linha.substring(43, 45);
-					med += Integer.parseInt(tempo);
-				}else if(linha.contains("inacessível")){
-					media = "Host inacessível";
+			if(os.contains("Windows")) {
+				while(linha != null) {
+					if(linha.contains("o=")) {
+						String tempo = linha.substring(43, 45);
+						med += Integer.parseInt(tempo);
+					}else if(linha.contains("inacessï¿½vel")){
+						media = "Host inacessï¿½vel";
+					}
+					linha = buffer.readLine();
 				}
-				linha = buffer.readLine();
+			}else {
+				while(linha != null) {
+					if(linha.contains("e=")) {
+						String tempo = linha.substring(80, 82);
+						System.out.println(tempo);
+						med += Integer.parseInt(tempo);
+					}else if(linha.contains("inacessï¿½vel")){
+						media = "Host inacessï¿½vel";
+					}
+					linha = buffer.readLine();
+				}
 			}
+			
 			
 			med = med / 10;
 			if(med > 0) {
 				media = "Media de ping = " + Integer.toString(med) + "ms";
 			}else {
-				media = "A conexão não pôde ser realizada";
+				media = "A conexï¿½o nï¿½o pï¿½de ser realizada";
 			}
 			
 		} catch (Exception e) {

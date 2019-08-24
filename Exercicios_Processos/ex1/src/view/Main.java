@@ -6,7 +6,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		RedesController rede = new RedesController();
-		System.out.println(rede.ip(System.getProperty("os.name")));
+		String os = System.getProperty("os.name");
+		
+		System.out.println(rede.ip(os));
+		System.out.println(rede.ping(os));
 	}
 
 }
