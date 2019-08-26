@@ -50,7 +50,7 @@ public class Main extends JFrame {
 		String os = System.getProperty("os.name");
 		setTitle("Executar - " + os);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 418, 175);
+		setBounds(100, 100, 420, 175);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,7 +58,7 @@ public class Main extends JFrame {
 		
 		JLabel lblDigiteOCaminho = new JLabel("Digite o caminho do execut\u00E1vel ou clique em procurar");
 		lblDigiteOCaminho.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDigiteOCaminho.setBounds(63, 23, 339, 20);
+		lblDigiteOCaminho.setBounds(13, 23, 339, 20);
 		contentPane.add(lblDigiteOCaminho);
 		
 		JLabel lblAbrir = new JLabel("Abrir:");
@@ -83,7 +83,6 @@ public class Main extends JFrame {
 		ExecuteController execute = new ExecuteController(txtProcedimento);
 		CancelController cancel = new CancelController();
 		SelectController select = new SelectController(txtProcedimento);
-		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/com/sun/java/swing/plaf/windows/icons/JavaCup32.png")));
 		lblNewLabel.setBounds(10, 9, 32, 43);
 		
 		contentPane.add(lblNewLabel);

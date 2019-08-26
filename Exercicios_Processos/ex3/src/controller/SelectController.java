@@ -17,8 +17,10 @@ public class SelectController implements ActionListener{
 	public void abrirSeletor() {
 		JFileChooser file = new JFileChooser();
 		file.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(".exe Files", "exe");
-		file.setFileFilter(filter);
+		if(System.getProperty("os.name").contains("WIndows")) {
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(".exe", "Run Files");
+			file.setFileFilter(filter);
+		}
 		int returnVal = file.showOpenDialog(null);
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
 			txtProcedimento.setText(file.getSelectedFile().getAbsolutePath());

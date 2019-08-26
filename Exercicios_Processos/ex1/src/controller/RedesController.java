@@ -55,7 +55,7 @@ public class RedesController {
 public String ping(String os) {
 		String media = "";
 		try {
-			Process processo = Runtime.getRuntime().exec(os.contains("Windows")? "ping -n 10 www.google.com" : "ping -c 9 www.google.com");
+			Process processo = Runtime.getRuntime().exec(os.contains("Windows")? "ping -n 10 www.google.com" : "ping -c 10 www.google.com");
 			InputStream fluxo = processo.getInputStream();
 			InputStreamReader leitor = new InputStreamReader(fluxo);
 			BufferedReader buffer = new BufferedReader(leitor);
@@ -65,21 +65,22 @@ public String ping(String os) {
 			if(os.contains("Windows")) {
 				while(linha != null) {
 					if(linha.contains("o=")) {
-						String tempo = linha.substring(43, 45);
+						int index = linha.indexOf("0=");
+						String tempo = linha.substring(index + 2, index + 4);
 						med += Integer.parseInt(tempo);
-					}else if(linha.contains("inacess�vel")){
-						media = "Host inacess�vel";
+					}else if(linha.contains("inacessivel")){
+						media = "Host inacessivel";
 					}
 					linha = buffer.readLine();
 				}
 			}else {
 				while(linha != null) {
 					if(linha.contains("e=")) {
-						String tempo = linha.substring(80, 82);
-						System.out.println(tempo);
+						int index = linha.indexOf("e=");
+						String tempo = linha.substring(index + 2, index + 4);
 						med += Integer.parseInt(tempo);
-					}else if(linha.contains("inacess�vel")){
-						media = "Host inacess�vel";
+					}else if(linha.contains("inacessivel")){
+						media = "Host inacessivel";
 					}
 					linha = buffer.readLine();
 				}
