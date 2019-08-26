@@ -65,7 +65,7 @@ public String ping(String os) {
 			if(os.contains("Windows")) {
 				while(linha != null) {
 					if(linha.contains("o=")) {
-						int index = linha.indexOf("0=");
+						int index = linha.indexOf("o=");
 						String tempo = linha.substring(index + 2, index + 4);
 						med += Integer.parseInt(tempo);
 					}else if(linha.contains("inacessivel")){
@@ -91,7 +91,7 @@ public String ping(String os) {
 			if(med > 0) {
 				media = "Media de ping = " + Integer.toString(med) + "ms";
 			}else {
-				media = "A conex�o n�o p�de ser realizada";
+				media = "A conexao nao pode ser realizada";
 			}
 			
 		} catch (Exception e) {

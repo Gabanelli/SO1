@@ -14,17 +14,16 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtProcedimento;
-	private JButton btnOk = new JButton("OK");
+	private static JButton btnOk = new JButton("OK");
 	private JButton btnCancelar = new JButton("Cancelar");
 	private JButton btnProcurar = new JButton("Procurar");
-	private final JLabel lblNewLabel = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -35,6 +34,7 @@ public class Main extends JFrame {
 				try {
 					Main frame = new Main();
 					frame.setVisible(true);
+					frame.getRootPane().setDefaultButton(btnOk);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,18 +56,19 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblDigiteOCaminho = new JLabel("Digite o caminho do execut\u00E1vel ou clique em procurar");
+		JLabel lblDigiteOCaminho = new JLabel("Digite o caminho do executavel ou clique em procurar");
+		lblDigiteOCaminho.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDigiteOCaminho.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDigiteOCaminho.setBounds(13, 23, 339, 20);
+		lblDigiteOCaminho.setBounds(13, 23, 389, 20);
 		contentPane.add(lblDigiteOCaminho);
 		
 		JLabel lblAbrir = new JLabel("Abrir:");
 		lblAbrir.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAbrir.setBounds(46, 64, 46, 14);
+		lblAbrir.setBounds(23, 64, 46, 14);
 		contentPane.add(lblAbrir);
 		
 		txtProcedimento = new JTextField();
-		txtProcedimento.setBounds(102, 63, 300, 20);
+		txtProcedimento.setBounds(79, 63, 300, 20);
 		contentPane.add(txtProcedimento);
 		txtProcedimento.setColumns(10);
 		
@@ -83,11 +84,8 @@ public class Main extends JFrame {
 		ExecuteController execute = new ExecuteController(txtProcedimento);
 		CancelController cancel = new CancelController();
 		SelectController select = new SelectController(txtProcedimento);
-		lblNewLabel.setBounds(10, 9, 32, 43);
 		
-		contentPane.add(lblNewLabel);
-		
-		this.btnOk.addActionListener(execute);
+		btnOk.addActionListener(execute);
 		this.btnCancelar.addActionListener(cancel);
 		this.btnProcurar.addActionListener(select);
 	}
