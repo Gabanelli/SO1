@@ -25,7 +25,7 @@ public class ThreadNumero extends Thread{
 		Principal.btnJogar.setSize(0, 0);
 		int qntRodadas = (int) (Math.random() * 150 + 1);
 		for(int i = 0; i < qntRodadas; i++) {
-			int n = (int) (Math.random() * 2 + 1);
+			int n = (int) (Math.random() * 7 + 1);
 			numero.setText(Integer.toString(n));
 			try {
 				Thread.sleep(50);
